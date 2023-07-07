@@ -23,13 +23,22 @@ const fragments = computed(() => {
 // 打开链接
 const openUrl = (url: string) => {
   if (!url) return
-  window.open(url, '_blank')
+  // 当没有协议时，自动添加协议
+  window.open('//' + url, '_blank')
 }
 </script>
 
 <template>
   <div class="text">
     <template v-for="(item, index) in fragments">
+      <span
+        v-if="item.startsWith('@') && item.trim() !== '' && item.trim() !== '@'"
+        :key="item"
+        class="text-mention"
+      >
+        {{ item }}
+      </span>
+      <template v-else>{{ item }}</template>
       <div
         v-if="keys.includes(item)"
         :key="item + index"
@@ -42,14 +51,6 @@ const openUrl = (url: string) => {
         <span class="text-card-title ellipsis-2"> {{ urlMap[item] }}</span>
         <span class="text-card-desc ellipsis-1">暂无描述</span>
       </div>
-      <span
-        v-else-if="item.startsWith('@') && item.trim() !== '' && item.trim() !== '@'"
-        :key="item"
-        class="text-mention"
-      >
-        {{ item }}
-      </span>
-      <template v-else>{{ item }}</template>
     </template>
   </div>
 </template>

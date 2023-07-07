@@ -3,10 +3,8 @@ import { ref, onMounted, nextTick, provide } from 'vue'
 import throttle from 'lodash/throttle'
 import { useChatStore } from '@/stores/chat'
 import type { MessageType } from '@/services/types'
-import VirtualList from '@/components/VirtualList/index'
+import VirtualList from '@/components/VirtualList'
 import MsgItem from './MsgItem/index.vue'
-
-import VideoPlayer from '@/components/VideoPlayer/index.vue'
 
 const chatStore = useChatStore()
 const virtualListRef = ref()
